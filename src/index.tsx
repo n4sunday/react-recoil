@@ -4,12 +4,15 @@ import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 import { RecoilRoot } from 'recoil'
+import 'semantic-ui-css/semantic.min.css'
 
 ReactDOM.render(
   <RecoilRoot>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </React.Suspense>
   </RecoilRoot>,
   document.getElementById('root')
 )

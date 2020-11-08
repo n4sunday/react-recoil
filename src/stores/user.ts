@@ -1,9 +1,7 @@
 import { atom } from 'recoil'
+import { IUser } from '../interfaces'
 
 export const userStore = atom({
   key: 'user',
-  default: {
-    id: '5935512004',
-    name: 'Nattapon',
-  },
+  default: [] as IUser[],
 })

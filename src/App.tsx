@@ -1,20 +1,37 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSetRecoilState } from 'recoil'
+import axios from 'axios'
+import { Divider, Header } from 'semantic-ui-react'
 import './App.css'
-import Count from './components/count'
-import { useRecoilState,useRecoilValue } from 'recoil'
-import { countStore, userStore } from './stores'
+
+import { userStore } from './stores'
+import User from './components/User'
+import Company from './components/Company'
 
 function App() {
-  const [count, setCount] = useRecoilState(countStore)
-  const user = useRecoilValue(userStore)
+  const setUsers = useSetRecoilState(userStore)
+
+  useEffect(() => {
+    fetchUsers()
+  }, [])
+
+  const fetchUsers = async () => {
+    let res = await axios.get(
+      'https://5fa84293c9b4e90016e6958f.mockapi.io/user'
+    )
+    setUsers(res.data)
+  }
 
   return (
     <div className="App">
-      <h1>
-        {user.name} {user.id}
-      </h1>
-      <Count />
-      <button onClick={() => setCount(count - 1)}>Decrement</button>
+      <Divider horizontal>
+        <Header as="h4">User</Header>
+      </Divider>
+      <User />
+      <Divider horizontal>
+        <Header as="h4">Company</Header>
+      </Divider>
+      <Company />
     </div>
   )
 }
